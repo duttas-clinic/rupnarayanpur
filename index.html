@@ -4,2238 +4,775 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Dutta's Clinical Laboratory - 50 Years of Diagnostic Excellence in Rupnarayanpur. 100% Robotic Infrastructure, 240 Tests/Hour. Open 365 Days.">
-    <meta name="keywords" content="Clinical Laboratory, Blood Test, Pathology, Rupnarayanpur, Diagnostic Center, Health Checkup">
-    <meta name="author" content="Dutta's Clinical Laboratory">
-    <meta property="og:title" content="Dutta's Clinical Laboratory | Rupnarayanpur">
-    <meta property="og:description" content="50 Years of Diagnostic Excellence - District's First 100% Robotic Laboratory">
-    <meta property="og:type" content="website">
-    
     <title>Dutta's Clinical Laboratory | Premium Diagnostic Center - Rupnarayanpur</title>
     
-    <!-- Preconnect for Performance -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Three.js -->
+    <!-- Three.js & GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            /* Professional Color Palette */
             --primary-deep: #0a0e27;
             --secondary-navy: #1e3a5f;
             --accent-cyan: #00d4ff;
             --accent-teal: #00a8a8;
             --accent-gold: #d4af37;
-            --accent-gold-light: #f4d03f;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --success: #10b981;
             --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #00a8a8 100%);
             --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             --gradient-hero: linear-gradient(135deg, #0a0e27 0%, #1e3a5f 50%, #0f172a 100%);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
             --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: var(--primary-deep);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            line-height: 1.2;
-        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--primary-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 5px; }
 
-        ::-webkit-scrollbar-track {
-            background: var(--primary-deep);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-primary);
-            border-radius: 5px;
-        }
-
-        /* Selection */
-        ::selection {
-            background: var(--accent-cyan);
-            color: var(--primary-deep);
-        }
-
-        /* Professional Navigation */
+        /* Navigation */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(10, 14, 39, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border); z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
         }
+        .navbar.scrolled { padding: 1rem 5%; background: rgba(10, 14, 39, 0.98); box-shadow: var(--shadow-md); }
 
-        .navbar.scrolled {
-            padding: 1rem 5%;
-            background: rgba(10, 14, 39, 0.98);
-            box-shadow: var(--shadow-md);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.02);
-        }
-
+        .logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
         .logo-icon {
-            width: 55px;
-            height: 55px;
-            background: var(--gradient-primary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
-            position: relative;
-            overflow: hidden;
+            width: 50px; height: 50px; background: var(--gradient-primary);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
         }
-
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
         .logo-text h1 {
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .logo-text span { font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; }
 
-        .logo-text span {
-            font-size: 0.9rem;
-            color: var(--accent-gold);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
+            color: var(--text-secondary); text-decoration: none; font-weight: 500;
+            transition: color 0.3s ease; font-size: 0.95rem;
         }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
+        .nav-links a:hover { color: var(--accent-cyan); }
         .nav-cta {
-            padding: 0.75rem 1.5rem;
-            background: var(--gradient-primary);
-            color: var(--primary-deep) !important;
-            border-radius: 8px;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-            transition: all 0.3s ease !important;
+            padding: 0.75rem 1.5rem; background: var(--gradient-primary);
+            color: var(--primary-deep) !important; border-radius: 8px; font-weight: 600;
         }
+        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
 
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
-        }
-
-        .nav-cta::before {
-            display: none !important;
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-primary);
-            padding: 0.5rem;
-        }
-
-        /* Hero Section - Enhanced */
+        /* Hero Section */
         .hero {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 140px 5% 100px;
-            overflow: hidden;
+            min-height: 100vh; position: relative; display: flex; align-items: center;
+            justify-content: center; padding: 140px 5% 100px; overflow: hidden;
             background: var(--gradient-hero);
         }
-
-        #canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            text-align: center;
-            width: 100%;
-        }
-
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        
+        .hero-content { position: relative; z-index: 10; max-width: 1200px; text-align: center; width: 100%; }
+        
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 2rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-sm);
-            animation: float 6s ease-in-out infinite;
+            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 2rem;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 50px; color: var(--accent-cyan); font-weight: 600;
+            margin-bottom: 2rem; backdrop-filter: blur(10px);
         }
-
         .hero h1 {
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
+            font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 50%, var(--accent-teal) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
         .hero-subtitle {
-            font-size: 1.35rem;
-            color: var(--text-secondary);
-            margin-bottom: 3.5rem;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
+            font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;
+            max-width: 700px; margin-left: auto; margin-right: auto;
         }
 
         .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 3.5rem;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;
         }
-
         .stat-item {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            text-align: center; padding: 1.5rem; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); border-radius: 16px;
+            backdrop-filter: blur(10px); transition: transform 0.3s ease;
         }
-
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-glow);
-            border-color: var(--accent-cyan);
-        }
-
-        .stat-item:hover::before {
-            opacity: 0.05;
-        }
-
+        .stat-item:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
         .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            position: relative;
+            font-size: 2.5rem; font-weight: 800; background: var(--gradient-gold);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
         }
+        .stat-label { color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
 
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
+        .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
         .btn-primary {
-            padding: 1.25rem 3rem;
-            background: var(--gradient-primary);
-            color: var(--primary-deep);
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            position: relative;
-            overflow: hidden;
+            padding: 1rem 2.5rem; background: var(--gradient-primary); color: var(--primary-deep);
+            border: none; border-radius: 10px; font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.5);
-        }
-
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4); }
+        
         .btn-secondary {
-            padding: 1.25rem 3rem;
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--accent-cyan);
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            backdrop-filter: blur(10px);
+            padding: 1rem 2.5rem; background: transparent; color: var(--text-primary);
+            border: 2px solid var(--accent-cyan); border-radius: 10px; font-weight: 600;
+            font-size: 1.1rem; cursor: pointer; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 0.75rem; transition: all 0.3s ease;
         }
+        .btn-secondary:hover { background: rgba(0, 212, 255, 0.1); transform: translateY(-3px); }
 
-        .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-            padding: 0 1rem;
-        }
-
+        /* Sections General */
+        section { padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
         .section-tag {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 50px;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            display: inline-block; padding: 0.5rem 1.5rem; background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-cyan); border-radius: 50px; color: var(--accent-cyan);
+            font-weight: 600; font-size: 0.85rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
         }
-
         .section-header h2 {
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem;
             background: linear-gradient(135deg, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .section-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 650px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Features Section - Enhanced */
-        .features {
-            padding: 120px 5%;
-            background: linear-gradient(180deg, var(--primary-deep) 0%, #0d1436 100%);
-            position: relative;
-        }
-
+        /* Features */
+        .features { background: linear-gradient(180deg, var(--primary-deep) 0%, #0d1436 100%); }
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
         }
-
         .feature-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            group: true;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--shadow-glow);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-primary);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .feature-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1.25rem;
-            color: var(--text-primary);
-            position: relative;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            position: relative;
-            font-size: 1rem;
-        }
-
-        .highlight {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        /* About Section - Enhanced */
-        .about {
-            padding: 120px 5%;
-            background: linear-gradient(180deg, #0d1436 0%, var(--primary-deep) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-            position: relative;
-        }
-
-        .about-visual {
-            position: relative;
-            height: 550px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .lab-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-            transition: transform 0.5s ease;
-        }
-
-        .about-visual:hover .lab-image {
-            transform: scale(1.05);
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            padding: 2rem;
-        }
-
-        .float-item {
-            position: absolute;
-            background: rgba(10, 14, 39, 0.9);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem 1.75rem;
-            backdrop-filter: blur(10px);
-            animation: float 5s ease-in-out infinite;
-            box-shadow: var(--shadow-md);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .float-item:nth-child(1) {
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-
-        .float-item:nth-child(2) {
-            top: 50%;
-            right: 5%;
-            animation-delay: 1.5s;
-        }
-
-        .float-item:nth-child(3) {
-            bottom: 10%;
-            left: 15%;
-            animation-delay: 3s;
-        }
-
-        .float-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .float-text {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .about-content h2 {
-            font-size: clamp(2.2rem, 3vw, 3rem);
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .about-content p {
-            color: var(--text-secondary);
-            margin-bottom: 1.75rem;
-            line-height: 1.9;
-            font-size: 1.05rem;
-        }
-
-        .about-highlights {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-            margin-top: 2.5rem;
-        }
-
-        .highlight-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: var(--glass-bg);
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-cyan);
-            transition: all 0.3s ease;
-        }
-
-        .highlight-item:hover {
-            transform: translateX(8px);
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        .highlight-item i {
-            color: var(--accent-cyan);
-            font-size: 1.3rem;
-        }
-
-        .highlight-item span {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Services Section - Enhanced */
-        .services {
-            padding: 120px 5%;
-            background: var(--primary-deep);
-            position: relative;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .service-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .service-card:hover::after {
-            opacity: 0.08;
-        }
-
-        .service-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--shadow-glow);
-            border-color: var(--accent-cyan);
-        }
-
-        .service-icon {
-            width: 90px;
-            height: 90px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .service-card h3 {
-            font-size: 1.7rem;
-            margin-bottom: 1.25rem;
-            color: var(--text-primary);
-            position: relative;
-            z-index: 1;
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-category {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1.25rem;
-            background: rgba(0, 212, 255, 0.15);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover .service-category {
-            background: var(--accent-cyan);
-            color: var(--primary-deep);
-        }
-
-        /* Testimonials - Enhanced */
-        .testimonials {
-            padding: 120px 5%;
-            background: linear-gradient(180deg, var(--primary-deep) 0%, #0d1436 100%);
-            position: relative;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem;
-            backdrop-filter: blur(10px);
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px);
             transition: all 0.4s ease;
-            position: relative;
-            box-shadow: var(--shadow-md);
         }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 8rem;
-            color: var(--accent-cyan);
-            opacity: 0.1;
-            font-family: 'Playfair Display', serif;
-            line-height: 1;
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--accent-cyan); box-shadow: var(--shadow-glow); }
+        .feature-icon {
+            width: 70px; height: 70px; background: var(--gradient-primary);
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--primary-deep);
         }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-primary); font-family: 'Inter', sans-serif; font-weight: 700; }
+        .feature-card p { color: var(--text-secondary); line-height: 1.7; }
+        .highlight { color: var(--accent-gold); font-weight: 600; }
 
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--accent-cyan);
+        /* About */
+        .about { background: var(--primary-deep); }
+        .about-container {
+            max-width: 1200px; margin: 0 auto; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
         }
-
-        .stars {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            gap: 0.25rem;
+        .about-visual {
+            position: relative; height: 450px; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden;
         }
-
-        .testimonial-text {
-            color: var(--text-secondary);
-            font-style: italic;
-            line-height: 1.9;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-            position: relative;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--primary-deep);
-            font-size: 1.3rem;
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
-        }
-
-        .author-info h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.3rem;
-            font-size: 1.2rem;
-        }
-
-        .author-info span {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Contact Section - Enhanced */
-        .contact {
-            padding: 120px 5%;
-            background: var(--primary-deep);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            position: relative;
-        }
-
-        .contact-info h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
+        .lab-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .about-content h2 {
+            font-size: 2.5rem; margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .about-content p { color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8; }
+        .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        .highlight-item {
+            display: flex; align-items: center; gap: 0.75rem; padding: 1rem;
+            background: var(--glass-bg); border-radius: 10px; border-left: 3px solid var(--accent-cyan);
+        }
+        .highlight-item i { color: var(--accent-cyan); }
+        .highlight-item span { color: var(--text-primary); font-weight: 600; font-size: 0.9rem; }
+
+        /* Services */
+        .services { background: linear-gradient(180deg, #0d1436 0%, var(--primary-deep) 100%); }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
+        }
+        .service-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px);
+            transition: all 0.4s ease; cursor: pointer;
+        }
+        .service-card:hover { transform: translateY(-8px); border-color: var(--accent-cyan); }
+        .service-icon {
+            width: 70px; height: 70px; background: var(--gradient-primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--primary-deep);
+        }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 700; }
+        .service-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .service-category {
+            display: inline-block; padding: 0.4rem 1rem; background: rgba(0, 212, 255, 0.15);
+            border: 1px solid var(--accent-cyan); border-radius: 20px; font-size: 0.8rem;
+            color: var(--accent-cyan); font-weight: 600;
         }
 
-        .contact-info > p {
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            font-size: 1.15rem;
-            line-height: 1.8;
+        /* Testimonials */
+        .testimonials { background: var(--primary-deep); }
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
         }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1.75rem;
+        .testimonial-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px);
         }
+        .stars { color: var(--accent-gold); margin-bottom: 1rem; }
+        .testimonial-text { color: var(--text-secondary); font-style: italic; line-height: 1.8; margin-bottom: 1.5rem; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .author-avatar {
+            width: 50px; height: 50px; background: var(--gradient-primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: var(--primary-deep);
+        }
+        .author-info h4 { font-size: 1.1rem; font-family: 'Inter', sans-serif; }
+        .author-info span { color: var(--text-muted); font-size: 0.9rem; }
 
+        /* Contact */
+        .contact { background: linear-gradient(180deg, var(--primary-deep) 0%, #0d1436 100%); }
+        .contact-container {
+            max-width: 1200px; margin: 0 auto; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 4rem;
+        }
+        .contact-info h2 {
+            font-size: 2.5rem; margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
         .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.75rem;
-            padding: 2rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.5rem;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 16px; transition: transform 0.3s ease;
         }
-
-        .contact-item:hover {
-            transform: translateX(12px);
-            border-color: var(--accent-cyan);
-            box-shadow: var(--shadow-glow);
-        }
-
+        .contact-item:hover { transform: translateX(10px); border-color: var(--accent-cyan); }
         .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            width: 50px; height: 50px; background: var(--gradient-primary);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: var(--primary-deep); flex-shrink: 0;
         }
-
-        .contact-text h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.3rem;
-        }
-
-        .contact-text p, .contact-text a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            line-height: 1.8;
-        }
-
-        .contact-text a:hover {
-            color: var(--accent-cyan);
-        }
+        .contact-text h4 { margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
+        .contact-text p, .contact-text a { color: var(--text-secondary); text-decoration: none; line-height: 1.6; }
+        .contact-text a:hover { color: var(--accent-cyan); }
 
         .contact-map {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 3rem;
-            backdrop-filter: blur(10px);
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 24px; padding: 3rem; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; min-height: 400px;
         }
-
         .map-pin {
-            width: 120px;
-            height: 120px;
-            background: var(--gradient-primary);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.5);
+            width: 100px; height: 100px; background: var(--gradient-primary);
+            border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: var(--primary-deep); margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
             animation: pulse 2s ease-in-out infinite;
-            margin-bottom: 2.5rem;
-            position: relative;
         }
-
-        .map-pin::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes ping {
-            75%, 100% {
-                transform: rotate(-45deg) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .map-pin i {
-            transform: rotate(45deg);
-        }
-
-        .map-location {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .map-location strong {
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 0.75rem;
-            font-size: 1.5rem;
-        }
-
-        /* Footer - Enhanced */
-        .footer {
-            background: #050814;
-            padding: 80px 5% 40px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand p {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 1.3rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .social-links a:hover {
-            background: var(--gradient-primary);
-            color: var(--primary-deep);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
-        }
-
-        .footer-column h4 {
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 1rem;
-        }
-
-        .footer-column ul li a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-column ul li a::before {
-            content: '→';
-            opacity: 0;
-            transition: all 0.3s ease;
-            color: var(--accent-cyan);
-        }
-
-        .footer-column ul li a:hover {
-            color: var(--accent-cyan);
-            padding-left: 8px;
-        }
-
-        .footer-column ul li a:hover::before {
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 3rem;
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .footer-bottom a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
+        .map-pin i { transform: rotate(45deg); }
         @keyframes pulse {
             0%, 100% { transform: rotate(-45deg) scale(1); }
-            50% { transform: rotate(-45deg) scale(1.08); }
+            50% { transform: rotate(-45deg) scale(1.1); }
         }
+        .map-location strong { color: var(--text-primary); font-size: 1.3rem; display: block; margin-bottom: 0.5rem; }
+        .map-location { color: var(--text-secondary); }
+
+        /* Footer */
+        .footer { background: #050814; padding: 60px 5% 30px; border-top: 1px solid var(--glass-border); }
+        .footer-content {
+            max-width: 1200px; margin: 0 auto; display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;
+        }
+        .footer-brand p { color: var(--text-secondary); margin: 1.5rem 0; line-height: 1.7; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary); transition: all 0.3s ease; text-decoration: none;
+        }
+        .social-links a:hover { background: var(--gradient-primary); color: var(--primary-deep); transform: translateY(-3px); }
+        .footer-column h4 { margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 0.8rem; }
+        .footer-column ul li a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+        .footer-column ul li a:hover { color: var(--accent-cyan); }
+        .footer-bottom {
+            max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+            border-top: 1px solid var(--glass-border); text-align: center;
+            color: var(--text-muted); font-size: 0.9rem;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-deep); display: flex; align-items: center;
+            justify-content: center; z-index: 9999; transition: opacity 0.5s ease;
+        }
+        .loader.hidden { opacity: 0; pointer-events: none; }
+        .loader-dna {
+            width: 60px; height: 60px; border: 4px solid var(--glass-border);
+            border-top-color: var(--accent-cyan); border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .about-container,
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            .about-container, .contact-container { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
         }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .stat-item {
-                padding: 1.5rem 1rem;
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .features-grid,
-            .services-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-highlights {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* Loading Animation */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-deep);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .loader-dna {
-            width: 100px;
-            height: 100px;
-            border: 4px solid var(--glass-border);
-            border-top-color: var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
-        }
-
-        .loader-text {
-            color: var(--accent-cyan);
-            font-size: 1.2rem;
-            font-weight: 600;
-            animation: pulse-text 1.5s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse-text {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Particle Effects */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: particle-float 15s infinite;
-            box-shadow: 0 0 10px var(--accent-cyan);
-        }
-
-        @keyframes particle-float {
-            0%, 100% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.5;
-            }
-            90% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* Accessibility */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        :focus-visible {
-            outline: 2px solid var(--accent-cyan);
-            outline-offset: 2px;
-        }
-
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        @media (max-width: 640px) {
+            .hero-stats { grid-template-columns: 1fr; }
+            .about-highlights { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
     <!-- Loader -->
     <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-dna"></div>
-            <div class="loader-text">Loading Excellence...</div>
-        </div>
+        <div class="loader-dna"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-        <a href="#" class="logo" aria-label="Dutta's Clinical Laboratory Home">
-            <div class="logo-icon">
-                <i class="fas fa-dna" aria-hidden="true"></i>
-            </div>
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon"><i class="fas fa-dna"></i></div>
             <div class="logo-text">
                 <h1>Dutta's Clinical Laboratory</h1>
                 <span>Rupnarayanpur</span>
             </div>
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
             <li><a href="#contact" class="nav-cta">Book Now</a></li>
         </ul>
-        <div class="mobile-menu" id="mobileMenu" role="button" aria-label="Toggle menu" tabindex="0">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </div>
+        <div class="mobile-menu" id="mobileMenu"><i class="fas fa-bars"></i></div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home" aria-label="Hero Section">
-        <div id="canvas-container" role="img" aria-label="3D DNA Animation"></div>
-        <div class="particles" id="particles" aria-hidden="true"></div>
-        
+    <section class="hero" id="home">
+        <div id="canvas-container"></div>
         <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-award" aria-hidden="true"></i>
-                <span>50 Years of Diagnostic Excellence Since 1976</span>
-            </div>
+            <div class="hero-badge"><i class="fas fa-award"></i> 50 Years of Diagnostic Excellence</div>
             <h1>Advanced Diagnostic Care You Can Trust</h1>
-            <p class="hero-subtitle">
-                District's first 100% robotic infrastructure with 240 tests/hour capacity. 
-                Open 365 days a year for your health needs. Government of West Bengal Approved.
-            </p>
+            <p class="hero-subtitle">District's first 100% robotic infrastructure with 240 tests/hour capacity. Open 365 days a year for your health needs.</p>
             
             <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number" data-target="50" aria-label="50 years of experience">0</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="240" aria-label="240 tests per hour">0</div>
-                    <div class="stat-label">Tests/Hour</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="95" aria-label="95 percent painless collection">0</div>
-                    <div class="stat-label">% Painless</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-target="365" aria-label="Open 365 days">0</div>
-                    <div class="stat-label">Days Open</div>
-                </div>
+                <div class="stat-item"><div class="stat-number" data-target="50">0</div><div class="stat-label">Years Experience</div></div>
+                <div class="stat-item"><div class="stat-number" data-target="240">0</div><div class="stat-label">Tests/Hour</div></div>
+                <div class="stat-item"><div class="stat-number" data-target="95">0</div><div class="stat-label">% Painless</div></div>
+                <div class="stat-item"><div class="stat-number" data-target="365">0</div><div class="stat-label">Days Open</div></div>
             </div>
             
             <div class="cta-buttons">
-                <a href="#contact" class="btn-primary">
-                    <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                    <span>Book Your Test</span>
-                </a>
-                <a href="#services" class="btn-secondary">
-                    <i class="fas fa-flask" aria-hidden="true"></i>
-                    <span>Our Services</span>
-                </a>
+                <a href="#contact" class="btn-primary"><i class="fas fa-calendar-check"></i> Book Your Test</a>
+                <a href="#services" class="btn-secondary"><i class="fas fa-flask"></i> Our Services</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features" aria-labelledby="features-heading">
+    <!-- Features -->
+    <section class="features" id="features">
         <div class="section-header">
             <span class="section-tag">Why Choose Us</span>
-            <h2 id="features-heading">Experience the Gold Standard in Diagnostics</h2>
+            <h2>Experience the Gold Standard</h2>
             <p>Cutting-edge technology meets uncompromising accuracy for your health</p>
         </div>
-        
         <div class="features-grid">
-            <article class="feature-card">
-                <div class="feature-icon" aria-hidden="true">
-                    <i class="fas fa-robot"></i>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-robot"></i></div>
                 <h3>100% Robotic Infrastructure</h3>
-                <p>For the past <span class="highlight">20 years</span>, we've utilized completely robotic infrastructure with a capacity of <span class="highlight">240 tests per hour</span>, ensuring the most reliable and accurate reports in the district.</p>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon" aria-hidden="true">
-                    <i class="fas fa-syringe"></i>
-                </div>
+                <p>For the past <span class="highlight">20 years</span>, we've utilized completely robotic infrastructure with a capacity of <span class="highlight">240 tests per hour</span>, ensuring the most reliable reports.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-syringe"></i></div>
                 <h3>95% Painless Collection</h3>
-                <p>We use <span class="highlight">ultra-fine needles</span> and expert phlebotomists. Our patients experience a virtually painless, frictionless service in a 100% private environment.</p>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon" aria-hidden="true">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+                <p>We use <span class="highlight">ultra-fine needles</span> and expert phlebotomists for a virtually painless, frictionless service in a 100% private environment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3>Gold Standard of Integrity</h3>
-                <p><span class="highlight">We avoid home collection.</span> Why? Blood samples degrade during transit. By visiting us, your sample is processed immediately, guaranteeing 100% accuracy.</p>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon" aria-hidden="true">
-                    <i class="fas fa-clock"></i>
-                </div>
+                <p><span class="highlight">We avoid home collection.</span> Blood samples degrade during transit. By visiting us, your sample is processed immediately, guaranteeing 100% accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
                 <h3>Open 365 Days</h3>
-                <p>Health doesn't take a holiday. We are open <span class="highlight">every single day from 7:00 AM to 4:00 PM</span>, including Sundays and all Government Holidays.</p>
-            </article>
+                <p>Health doesn't take a holiday. We are open <span class="highlight">every single day from 7:00 AM to 4:00 PM</span>, including Sundays and Government Holidays.</p>
+            </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about" aria-labelledby="about-heading">
+    <!-- About -->
+    <section class="about" id="about">
         <div class="about-container">
             <div class="about-visual">
-                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop" 
-                     alt="Modern clinical laboratory with advanced robotic equipment" 
-                     class="lab-image"
-                     loading="lazy">
-                <div class="floating-elements" aria-hidden="true">
-                    <div class="float-item">
-                        <div class="float-icon">
-                            <i class="fas fa-microscope"></i>
-                        </div>
-                        <span class="float-text">Advanced Equipment</span>
-                    </div>
-                    <div class="float-item">
-                        <div class="float-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <span class="float-text">100% Accurate</span>
-                    </div>
-                    <div class="float-item">
-                        <div class="float-icon">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <span class="float-text">Expert Staff</span>
-                    </div>
-                </div>
+                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop" alt="Modern Laboratory" class="lab-image" loading="lazy">
             </div>
-            
             <div class="about-content">
-                <h2 id="about-heading">Nearly 50 Years of Diagnostic Excellence</h2>
+                <h2>Nearly 50 Years of Diagnostic Excellence</h2>
                 <p>Established in <strong>1976</strong>, Dutta's Clinical Laboratory has been the cornerstone of trusted healthcare in Rupnarayanpur for nearly half a century. As a highly accredited and Government of West Bengal approved diagnostic center.</p>
-                
-                <p>Our longevity is a testament to the trust placed in us by thousands of families across the district who rely on us for their most critical health decisions.</p>
-                
                 <p><strong>The District's First 100% Robotic Infrastructure</strong> - For the past 20 years, we operate a completely robotic, automated laboratory infrastructure processing <span class="highlight">240 tests per hour</span>.</p>
-                
                 <div class="about-highlights">
-                    <div class="highlight-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <span>Government of West Bengal Approved</span>
-                    </div>
-                    <div class="highlight-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <span>Wheelchair Accessible Ground Floor</span>
-                    </div>
-                    <div class="highlight-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <span>Free Parking for 10 Cars</span>
-                    </div>
-                    <div class="highlight-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <span>Same-Day Reports for Routine Tests</span>
-                    </div>
+                    <div class="highlight-item"><i class="fas fa-check-circle"></i><span>Govt. of West Bengal Approved</span></div>
+                    <div class="highlight-item"><i class="fas fa-check-circle"></i><span>Wheelchair Accessible</span></div>
+                    <div class="highlight-item"><i class="fas fa-check-circle"></i><span>Free Parking for 10 Cars</span></div>
+                    <div class="highlight-item"><i class="fas fa-check-circle"></i><span>Same-Day Routine Reports</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services" aria-labelledby="services-heading">
+    <!-- Services -->
+    <section class="services" id="services">
         <div class="section-header">
             <span class="section-tag">Our Services</span>
-            <h2 id="services-heading">Specialized Health Profiles</h2>
+            <h2>Specialized Health Profiles</h2>
             <p>Comprehensive diagnostic testing under one roof with affordable pricing</p>
         </div>
-        
         <div class="services-grid">
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
                 <h3>Comprehensive Health Check</h3>
-                <p>Full body checkups, diabetes screening, and prenatal panels to ensure complete health monitoring.</p>
+                <p>Full body checkups, diabetes screening, and prenatal panels.</p>
                 <span class="service-category">Comprehensive</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-brain"></i>
-                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-brain"></i></div>
                 <h3>Thyroid Profile</h3>
-                <p>Complete thyroid function testing including T3, T4, TSH for accurate diagnosis and monitoring.</p>
+                <p>Complete thyroid function testing including T3, T4, TSH.</p>
                 <span class="service-category">Specialized</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-bone"></i>
-                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-bone"></i></div>
                 <h3>Vitamin D & B12</h3>
-                <p>Essential vitamin level testing to detect deficiencies and guide supplementation therapy.</p>
+                <p>Essential vitamin level testing to detect deficiencies.</p>
                 <span class="service-category">Specialized</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-tint"></i>
-                </div>
-                <h3>Anemia Profile</h3>
-                <p>Complete hemoglobin and iron studies to diagnose and monitor various types of anemia.</p>
-                <span class="service-category">Specialized</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-shield-virus"></i>
-                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
                 <h3>Autoimmune Profile</h3>
-                <p>Advanced rheumatological testing for autoimmune conditions and inflammatory markers.</p>
+                <p>Advanced rheumatological testing for autoimmune conditions.</p>
                 <span class="service-category">Advanced</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-dna"></i>
-                </div>
-                <h3>Cancer Profile</h3>
-                <p>Early tumor marker detection and comprehensive cancer screening panels.</p>
-                <span class="service-category">Advanced</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-heart"></i>
-                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-heart"></i></div>
                 <h3>Cardiac Profile</h3>
-                <p>Complete cardiovascular risk assessment including lipid profile and cardiac markers.</p>
+                <p>Complete cardiovascular risk assessment including lipid profile.</p>
                 <span class="service-category">Cardiac</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-kidney"></i>
-                </div>
-                <h3>Kidney Function Test</h3>
-                <p>Comprehensive renal function testing including creatinine, urea, and electrolytes.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-flask"></i></div>
+                <h3>Liver & Kidney Function</h3>
+                <p>Comprehensive hepatic and renal function testing panels.</p>
                 <span class="service-category">Advanced</span>
-            </article>
-            
-            <article class="service-card">
-                <div class="service-icon" aria-hidden="true">
-                    <i class="fas fa-flask"></i>
-                </div>
-                <h3>Liver Function Test</h3>
-                <p>Complete hepatic panel to assess liver health and detect liver diseases early.</p>
-                <span class="service-category">Advanced</span>
-            </article>
+            </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
         <div class="section-header">
             <span class="section-tag">Testimonials</span>
-            <h2 id="testimonials-heading">Trusted by Thousands</h2>
-            <p>Don't just take our word for it. Here's what our patients say.</p>
+            <h2>Trusted by Thousands</h2>
+            <p>Here's what our patients say about their experience.</p>
         </div>
-        
         <div class="testimonials-grid">
-            <article class="testimonial-card">
-                <div class="stars" role="img" aria-label="5 out of 5 stars">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                </div>
-                <p class="testimonial-text">"I traveled from Asansol to get my Thyroid profile done here. The robotic infrastructure is amazing—got my report on my phone in just 2 hours! Truly the best lab in the region."</p>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="testimonial-text">"I traveled from Asansol to get my Thyroid profile done here. The robotic infrastructure is amazing—got my report on my phone in just 2 hours!"</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar" aria-hidden="true">RM</div>
-                    <div class="author-info">
-                        <h4>Rahul M.</h4>
-                        <span>Asansol</span>
-                    </div>
+                    <div class="author-avatar">RM</div>
+                    <div class="author-info"><h4>Rahul M.</h4><span>Asansol</span></div>
                 </div>
-            </article>
-            
-            <article class="testimonial-card">
-                <div class="stars" role="img" aria-label="5 out of 5 stars">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                </div>
-                <p class="testimonial-text">"My father needed a blood test on a Sunday morning. Most labs were closed, but Dutta's Lab was open. The phlebotomist was so gentle, 95% painless just like they promise. Highly recommended!"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="testimonial-text">"My father needed a blood test on a Sunday morning. Most labs were closed, but Dutta's Lab was open. The phlebotomist was so gentle, 95% painless."</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar" aria-hidden="true">SD</div>
-                    <div class="author-info">
-                        <h4>Sunita D.</h4>
-                        <span>Rupnarayanpur</span>
-                    </div>
+                    <div class="author-avatar">SD</div>
+                    <div class="author-info"><h4>Sunita D.</h4><span>Rupnarayanpur</span></div>
                 </div>
-            </article>
-            
-            <article class="testimonial-card">
-                <div class="stars" role="img" aria-label="5 out of 5 stars">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                </div>
-                <p class="testimonial-text">"Our family has been coming here for 3 generations. The shift to 100% robotic testing makes the reports so accurate. Free parking and wheelchair access made it very easy for my elderly parents."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="testimonial-text">"Our family has been coming here for 3 generations. The shift to 100% robotic testing makes the reports so accurate. Highly recommended!"</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar" aria-hidden="true">AKS</div>
-                    <div class="author-info">
-                        <h4>Dr. A. K. Sen</h4>
-                        <span>Dabore More</span>
-                    </div>
+                    <div class="author-avatar">AKS</div>
+                    <div class="author-info"><h4>Dr. A. K. Sen</h4><span>Dabore More</span></div>
                 </div>
-            </article>
+            </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <!-- Contact -->
+    <section class="contact" id="contact">
         <div class="contact-container">
             <div class="contact-info">
-                <h2 id="contact-heading">Visit Our Laboratory</h2>
-                <p>No prior booking required! Walk in anytime between 7 AM and 4 PM.</p>
-                
+                <h2>Visit Our Laboratory</h2>
+                <p style="color: var(--text-secondary);">No prior booking required! Walk in anytime between 7 AM and 4 PM.</p>
                 <div class="contact-details">
                     <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="contact-text">
                             <h4>Address</h4>
-                            <p>Dutta's Clinical Laboratory<br>
-                            Dabore More, Near Friends Computer Center<br>
-                            Rupnarayanpur, West Bengal 713386</p>
+                            <p>Dutta's Clinical Laboratory, Dabore More,<br>Near Friends Computer Center, Rupnarayanpur, WB 713386</p>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
                         <div class="contact-text">
                             <h4>Working Hours</h4>
-                            <p>Monday - Sunday<br>
-                            7:00 AM - 4:00 PM<br>
-                            <span style="color: var(--accent-gold);">Open 365 days including holidays</span></p>
+                            <p>Monday - Sunday: 7:00 AM - 4:00 PM<br><span style="color: var(--accent-gold);">Open 365 days including holidays</span></p>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-phone"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <div class="contact-text">
                             <h4>Contact</h4>
-                            <p>
-                                <a href="tel:+91XXXXXXXXXX">+91 XXXXXXXXXX</a><br>
-                                <a href="mailto:contact@duttalab.in">contact@duttalab.in</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">
-                            <i class="fas fa-parking"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Facilities</h4>
-                            <p>Free dedicated parking for 10 cars<br>
-                            Wheelchair accessible ground floor<br>
-                            No booking required - Walk-in welcome</p>
+                            <p><a href="tel:+91XXXXXXXXXX">+91 XXXXXXXXXX</a><br><a href="mailto:contact@duttalab.in">contact@duttalab.in</a></p>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="contact-map">
-                <div class="map-pin" role="img" aria-label="Location pin">
-                    <i class="fas fa-location-crosshairs" aria-hidden="true"></i>
-                </div>
+                <div class="map-pin"><i class="fas fa-location-crosshairs"></i></div>
                 <div class="map-location">
                     <strong>Rupnarayanpur, Bankura</strong>
                     West Bengal, India<br>
-                    <span style="font-size: 0.95rem; margin-top: 0.75rem; display: block;">
-                        <i class="fas fa-info-circle" aria-hidden="true"></i> Near Dabore More
-                    </span>
+                    <span style="font-size: 0.9rem; margin-top: 0.5rem; display: block;">Near Dabore More</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <a href="#" class="logo" aria-label="Dutta's Clinical Laboratory Home">
-                    <div class="logo-icon">
-                        <i class="fas fa-dna" aria-hidden="true"></i>
-                    </div>
+                <a href="#" class="logo">
+                    <div class="logo-icon"><i class="fas fa-dna"></i></div>
                     <div class="logo-text">
                         <h1>Dutta's Clinical Laboratory</h1>
                         <span>Rupnarayanpur</span>
                     </div>
                 </a>
-                <p>Serving the community with advanced diagnostic care since 1976. Your health is our priority. Government of West Bengal Approved Diagnostic Center.</p>
-                <div class="social-links" aria-label="Social Media Links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                <p>Serving the community with advanced diagnostic care since 1976. Government of West Bengal Approved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-            
             <div class="footer-column">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Services</h4>
                 <ul>
                     <li><a href="#services">Blood Tests</a></li>
                     <li><a href="#services">Health Profiles</a></li>
                     <li><a href="#services">Pathology</a></li>
-                    <li><a href="#services">Diagnostic Imaging</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Support</h4>
                 <ul>
                     <li><a href="#contact">Contact Us</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
         </div>
-        
         <div class="footer-bottom">
-            <p>&copy; 2026 Dutta's Clinical Laboratory. All rights reserved. | Government of West Bengal Approved | <a href="mailto:contact@duttalab.in">Contact Us</a></p>
+            <p>&copy; 2026 Dutta's Clinical Laboratory. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Remove loader
+        // 1. Remove Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1500);
+            }, 800);
         });
 
-        // Three.js Enhanced DNA Helix Animation
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+        // 2. Three.js DNA Animation (Simplified & Robust)
+        try {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // Create Enhanced DNA Helix
-        const dnaGroup = new THREE.Group();
-        const strandCount = 30;
-        const radius = 2;
-        const height = 10;
-        const turns = 3;
+            const dnaGroup = new THREE.Group();
+            const strandCount = 30;
+            const radius = 2;
+            const height = 10;
+            const turns = 3;
 
-        // Create two strands with enhanced materials
-        for (let s = 0; s < 2; s++) {
-            const strandGeometry = new THREE.BufferGeometry();
-            const positions = [];
-            const colors = [];
-            
-            for (let i = 0; i <= strandCount * 10; i++) {
-                const t = i / 10;
-                const angle = (t / strandCount) * Math.PI * 2 * turns + (s * Math.PI);
-                const x = Math.cos(angle) * radius;
-                const z = Math.sin(angle) * radius;
-                const y = (t / strandCount) * height - height / 2;
-                
-                positions.push(x, y, z);
-                
-                const color = new THREE.Color();
-                if (s === 0) {
-                    color.setHSL(0.5, 1, 0.5);
-                } else {
-                    color.setHSL(0.6, 1, 0.5);
+            for (let s = 0; s < 2; s++) {
+                const positions = [];
+                const colors = [];
+                for (let i = 0; i <= strandCount * 10; i++) {
+                    const t = i / 10;
+                    const angle = (t / strandCount) * Math.PI * 2 * turns + (s * Math.PI);
+                    positions.push(Math.cos(angle) * radius, (t / strandCount) * height - height / 2, Math.sin(angle) * radius);
+                    const color = new THREE.Color();
+                    color.setHSL(s === 0 ? 0.5 : 0.6, 1, 0.5);
+                    colors.push(color.r, color.g, color.b);
                 }
-                colors.push(color.r, color.g, color.b);
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+                dnaGroup.add(new THREE.Points(geometry, new THREE.PointsMaterial({
+                    size: 0.15, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending
+                })));
             }
-            
-            strandGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            strandGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-            
-            const strandMaterial = new THREE.PointsMaterial({
-                size: 0.18,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.9,
-                blending: THREE.AdditiveBlending
+            scene.add(dnaGroup);
+            camera.position.z = 8;
+
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
             });
-            
-            const strand = new THREE.Points(strandGeometry, strandMaterial);
-            dnaGroup.add(strand);
-        }
 
-        // Add connecting base pairs with enhanced visuals
-        for (let i = 0; i <= strandCount; i++) {
-            const t = i;
-            const angle = (t / strandCount) * Math.PI * 2 * turns;
-            const x1 = Math.cos(angle) * radius;
-            const z1 = Math.sin(angle) * radius;
-            const y = (t / strandCount) * height - height / 2;
-            
-            const x2 = Math.cos(angle + Math.PI) * radius;
-            const z2 = Math.sin(angle + Math.PI) * radius;
-            
-            const baseGeometry = new THREE.CylinderGeometry(0.06, 0.06, 0.12, 8);
-            const baseMaterial = new THREE.MeshBasicMaterial({
-                color: 0x00d4ff,
-                transparent: true,
-                opacity: 0.7,
-                blending: THREE.AdditiveBlending
-            });
-            
-            const base = new THREE.Mesh(baseGeometry, baseMaterial);
-            base.position.set((x1 + x2) / 2, y, (z1 + z2) / 2);
-            base.rotation.z = Math.PI / 2;
-            base.rotation.y = -angle;
-            dnaGroup.add(base);
-        }
+            function animate() {
+                requestAnimationFrame(animate);
+                dnaGroup.rotation.y += 0.005;
+                dnaGroup.rotation.x += (mouseY * 0.2 - dnaGroup.rotation.x) * 0.05;
+                dnaGroup.rotation.z += (mouseX * 0.2 - dnaGroup.rotation.z) * 0.05;
+                renderer.render(scene, camera);
+            }
+            animate();
 
-        scene.add(dnaGroup);
-
-        // Add floating particles with enhanced effect
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 150;
-        const posArray = new Float32Array(particlesCount * 3);
-
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 25;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.06,
-            color: 0x00d4ff,
-            transparent: true,
-            opacity: 0.7,
-            blending: THREE.AdditiveBlending
-        });
-
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
-
-        camera.position.z = 8;
-
-        // Mouse movement with smoothing
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        // Animation loop with smooth interpolation
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Smooth camera movement
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            dnaGroup.rotation.y += 0.005;
-            dnaGroup.rotation.x = targetY * 0.2;
-            dnaGroup.rotation.z = targetX * 0.2;
-
-            particlesMesh.rotation.y += 0.001;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Handle resize with debounce
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
+            window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            }, 250);
-        });
-
-        // Create HTML particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 40;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                container.appendChild(particle);
-            }
+            });
+        } catch (e) {
+            console.log("Three.js fallback active");
         }
 
-        createParticles();
-
-        // GSAP Animations
+        // 3. GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        // Navbar scroll effect with performance optimization
-        let lastScroll = 0;
+        // Navbar scroll
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            lastScroll = currentScroll;
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Animate stats with easing
-        const stats = document.querySelectorAll('.stat-number');
-        stats.forEach(stat => {
+        // Animate stats
+        document.querySelectorAll('.stat-number').forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
-            
             ScrollTrigger.create({
                 trigger: stat,
                 start: 'top 85%',
-                onEnter: () => {
-                    gsap.to(stat, {
-                        innerHTML: target,
-                        duration: 2.5,
-                        snap: { innerHTML: 1 },
-                        ease: 'power2.out'
-                    });
-                },
+                onEnter: () => gsap.to(stat, { innerHTML: target, duration: 2, snap: { innerHTML: 1 }, ease: 'power2.out' }),
                 once: true
             });
         });
 
-        // Animate feature cards with stagger
-        gsap.utils.toArray('.feature-card').forEach((card, i) => {
+        // Animate cards
+        gsap.utils.toArray('.feature-card, .service-card, .testimonial-card').forEach((card, i) => {
             gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 85%',
-                },
-                y: 100,
-                opacity: 0,
-                duration: 0.8,
-                delay: i * 0.15,
-                ease: 'power3.out'
+                scrollTrigger: { trigger: card, start: 'top 85%' },
+                y: 50, opacity: 0, duration: 0.8, delay: (i % 4) * 0.1, ease: 'power3.out'
             });
         });
 
-        // Animate service cards with stagger
-        gsap.utils.toArray('.service-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 85%',
-                },
-                y: 80,
-                opacity: 0,
-                duration: 0.7,
-                delay: i * 0.08,
-                ease: 'power3.out'
-            });
+        // 4. Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenu.addEventListener('click', () => {
+            const isOpen = navLinks.style.display === 'flex';
+            navLinks.style.display = isOpen ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(10, 14, 39, 0.98)';
+            navLinks.style.padding = '2rem';
+            navLinks.style.borderTop = '1px solid var(--glass-border)';
+            mobileMenu.querySelector('i').className = isOpen ? 'fas fa-bars' : 'fas fa-times';
         });
 
-        // Animate testimonials
-        gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 85%',
-                },
-                x: i % 2 === 0 ? -100 : 100,
-                opacity: 0,
-                duration: 0.9,
-                ease: 'power3.out'
-            });
-        });
-
-        // Smooth scroll for navigation links with offset
+        // 5. Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (window.innerWidth <= 768) {
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                    if (window.innerWidth <= 968) {
                         navLinks.style.display = 'none';
+                        mobileMenu.querySelector('i').className = 'fas fa-bars';
                     }
                 }
             });
         });
 
-        // Mobile menu toggle with animation
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navLinks = document.querySelector('.nav-links');
-        let menuOpen = false;
-
-        mobileMenu.addEventListener('click', () => {
-            menuOpen = !menuOpen;
-            
-            if (menuOpen) {
-                navLinks.style.display = 'flex';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.right = '0';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.background = 'rgba(10, 14, 39, 0.98)';
-                navLinks.style.padding = '2rem';
-                navLinks.style.backdropFilter = 'blur(20px)';
-                navLinks.style.borderTop = '1px solid var(--glass-border)';
-                navLinks.style.boxShadow = 'var(--shadow-lg)';
-                
-                gsap.from(navLinks.children, {
-                    y: -20,
-                    opacity: 0,
-                    duration: 0.3,
-                    stagger: 0.05,
-                    ease: 'power2.out'
-                });
-            } else {
-                gsap.to(navLinks.children, {
-                    y: -20,
-                    opacity: 0,
-                    duration: 0.2,
-                    stagger: 0.03,
-                    ease: 'power2.in',
-                    onComplete: () => {
-                        navLinks.style.display = 'none';
-                    }
-                });
-            }
-            
-            mobileMenu.querySelector('i').classList.toggle('fa-bars');
-            mobileMenu.querySelector('i').classList.toggle('fa-times');
-        });
-
-        // Close mobile menu on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (menuOpen) {
-                    menuOpen = false;
-                    navLinks.style.display = 'none';
-                    mobileMenu.querySelector('i').classList.remove('fa-times');
-                    mobileMenu.querySelector('i').classList.add('fa-bars');
-                }
-            });
-        });
-
-        // Add parallax effect to hero section with requestAnimationFrame
-        let heroParallax ticking = false;
+        // 6. FIXED Parallax Effect (Typo corrected here)
+        let heroParallaxTicking = false;
         window.addEventListener('scroll', () => {
             if (!heroParallaxTicking) {
                 window.requestAnimationFrame(() => {
                     const scrolled = window.pageYOffset;
                     const hero = document.querySelector('.hero-content');
                     if (hero && scrolled < 700) {
-                        hero.style.transform = `translateY(${scrolled * 0.4}px)`;
-                        hero.style.opacity = 1 - scrolled / 800;
+                        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                        hero.style.opacity = 1 - (scrolled / 800);
                     }
                     heroParallaxTicking = false;
                 });
                 heroParallaxTicking = true;
             }
         });
-
-        // Performance optimization: Intersection Observer for animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.willChange = 'transform';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card, .service-card, .testimonial-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        console.log('%c Dutta\'s Clinical Laboratory', 'color: #00d4ff; font-size: 24px; font-weight: bold;');
-        console.log('%c 50 Years of Diagnostic Excellence', 'color: #94a3b8; font-size: 14px;');
     </script>
 </body>
 </html>
