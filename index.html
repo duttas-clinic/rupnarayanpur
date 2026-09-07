@@ -14,22 +14,20 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Three.js & GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP for smooth, professional scroll animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --primary: #0ea5e9;       /* Clean Sky Blue */
-            --primary-dark: #0284c7;  /* Deep Blue */
-            --accent: #0f172a;        /* Slate Black for text */
-            --bg-light: #f8fafc;
+            --primary: #0284c7;       /* Trustworthy Medical Blue */
+            --primary-dark: #0369a1;  
+            --accent: #0f172a;        /* Deep Slate for text */
             
             /* Premium Glassmorphism Variables */
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
             --glass-blur: blur(16px);
         }
 
@@ -41,22 +39,21 @@
             color: var(--accent);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Soft, elegant animated background to make glass effect visible */
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+            /* Soft, clean background */
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%);
             background-attachment: fixed;
         }
 
-        /* Abstract background blobs for glass depth */
-        .bg-blob {
+        /* Subtle background shapes for glass depth */
+        .bg-shape {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(90px);
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.5;
         }
-        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #bae6fd; }
-        .blob-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #e0f2fe; }
-        .blob-3 { top: 40%; left: 30%; width: 30vw; height: 30vw; background: #f0f9ff; }
+        .shape-1 { top: -10%; right: -5%; width: 40vw; height: 40vw; background: #bae6fd; }
+        .shape-2 { bottom: -10%; left: -10%; width: 45vw; height: 45vw; background: #e0f2fe; }
 
         h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; color: var(--accent); }
         p { color: #475569; }
@@ -72,10 +69,10 @@
         }
 
         .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         /* Navigation */
@@ -90,10 +87,10 @@
         .logo-icon {
             width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem; color: white; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+            font-size: 1.25rem; color: white; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         }
-        .logo-text h1 { font-size: 1.2rem; margin: 0; }
-        .logo-text span { font-size: 0.75rem; color: var(--primary-dark); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .logo-text h1 { font-size: 1.15rem; margin: 0; }
+        .logo-text span { font-size: 0.7rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
 
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: #475569; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
@@ -101,9 +98,9 @@
         .nav-cta {
             padding: 0.6rem 1.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white !important; border-radius: 50px; font-weight: 600;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3); transition: transform 0.3s, box-shadow 0.3s;
         }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4); }
         .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
 
         /* Hero Section */
@@ -117,7 +114,7 @@
         }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem;
-            background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.2);
+            background: rgba(2, 132, 199, 0.1); border: 1px solid rgba(2, 132, 199, 0.2);
             border-radius: 50px; color: var(--primary-dark); font-weight: 700;
             font-size: 0.85rem; margin-bottom: 1.5rem;
         }
@@ -128,32 +125,48 @@
         .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
         .stat-item { padding: 1.25rem; text-align: center; }
         .stat-number { font-size: 2.25rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem; }
-        .stat-label { font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-label { font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
         .btn-primary {
             padding: 1rem 2rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem;
             cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
         }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4); }
         
         .btn-secondary {
-            padding: 1rem 2rem; background: rgba(255, 255, 255, 0.5); color: var(--accent);
-            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 12px; font-weight: 700;
+            padding: 1rem 2rem; background: rgba(255, 255, 255, 0.6); color: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 12px; font-weight: 700;
             font-size: 1rem; cursor: pointer; text-decoration: none; display: inline-flex;
             align-items: center; gap: 0.5rem; transition: all 0.3s ease; backdrop-filter: blur(10px);
         }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.8); transform: translateY(-3px); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-3px); }
 
-        #canvas-container { width: 100%; height: 500px; position: relative; }
+        /* Professional Hero Image instead of 3D */
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(2, 132, 199, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.03);
+        }
 
         /* Sections General */
         section { padding: 100px 5%; position: relative; }
         .section-header { text-align: center; margin-bottom: 4rem; max-width: 700px; margin-left: auto; margin-right: auto; }
         .section-tag {
-            display: inline-block; padding: 0.4rem 1.25rem; background: rgba(14, 165, 233, 0.1);
+            display: inline-block; padding: 0.4rem 1.25rem; background: rgba(2, 132, 199, 0.1);
             border-radius: 50px; color: var(--primary-dark); font-weight: 700;
             font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
         }
@@ -162,11 +175,11 @@
         /* Features */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
         .feature-card { padding: 2.5rem; transition: all 0.4s ease; }
-        .feature-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.85); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.12); }
+        .feature-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.85); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); }
         .feature-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+            width: 60px; height: 60px; background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(2, 132, 199, 0.05));
             border-radius: 16px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border: 1px solid rgba(14, 165, 233, 0.15);
+            font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border: 1px solid rgba(2, 132, 199, 0.15);
         }
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
         .highlight { color: var(--primary-dark); font-weight: 700; }
@@ -179,7 +192,7 @@
         .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
         .highlight-item {
             display: flex; align-items: center; gap: 0.75rem; padding: 1rem;
-            background: rgba(255, 255, 255, 0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.6); border-radius: 12px; border: 1px solid rgba(255,255,255,0.8);
         }
         .highlight-item i { color: var(--primary); font-size: 1.1rem; }
         .highlight-item span { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
@@ -191,11 +204,11 @@
         .service-icon {
             width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 16px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: white; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+            font-size: 1.5rem; color: white; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
         }
         .service-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
         .service-category {
-            display: inline-block; padding: 0.35rem 1rem; background: rgba(14, 165, 233, 0.08);
+            display: inline-block; padding: 0.35rem 1rem; background: rgba(2, 132, 199, 0.08);
             border-radius: 50px; font-size: 0.75rem; color: var(--primary-dark); font-weight: 700; margin-top: 1rem;
         }
 
@@ -226,7 +239,7 @@
         .contact-icon {
             width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 14px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; color: white; flex-shrink: 0; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+            font-size: 1.2rem; color: white; flex-shrink: 0; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         }
         .contact-text h4 { margin-bottom: 0.25rem; font-size: 1.05rem; }
         .contact-text a { color: var(--primary-dark); text-decoration: none; font-weight: 600; }
@@ -238,7 +251,7 @@
             border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
             display: flex; align-items: center; justify-content: center;
             font-size: 2rem; color: white; margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4);
             animation: pulse 2s ease-in-out infinite;
         }
         .map-pin i { transform: rotate(45deg); }
@@ -272,10 +285,10 @@
             z-index: 9999; transition: opacity 0.5s ease;
         }
         .loader.hidden { opacity: 0; pointer-events: none; }
-        .loader-dna {
-            width: 50px; height: 50px; border: 3px solid #e2e8f0;
+        .loader-spinner {
+            width: 40px; height: 40px; border: 3px solid #e2e8f0;
             border-top-color: var(--primary); border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -284,7 +297,7 @@
             .nav-links { display: none; }
             .mobile-menu { display: block; }
             .hero-container, .about-container, .contact-container { grid-template-columns: 1fr; }
-            #canvas-container { height: 350px; order: -1; }
+            .hero-image-wrapper { order: -1; margin-bottom: 2rem; }
             .footer-content { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 640px) {
@@ -297,18 +310,17 @@
     </style>
 </head>
 <body>
-    <!-- Background Blobs for Glass Effect -->
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
+    <!-- Background Shapes for Glass Depth -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
 
     <!-- Loader -->
-    <div class="loader" id="loader"><div class="loader-dna"></div></div>
+    <div class="loader" id="loader"><div class="loader-spinner"></div></div>
 
     <!-- Navigation -->
     <nav class="navbar glass-nav" id="navbar">
         <a href="#" class="logo">
-            <div class="logo-icon"><i class="fas fa-dna"></i></div>
+            <div class="logo-icon"><i class="fas fa-microscope"></i></div>
             <div class="logo-text">
                 <h1>Dutta's Clinical Laboratory</h1>
                 <span>Rupnarayanpur</span>
@@ -345,7 +357,13 @@
                     <a href="#services" class="btn-secondary"><i class="fas fa-flask"></i> Our Services</a>
                 </div>
             </div>
-            <div id="canvas-container"></div>
+            
+            <!-- Professional High-Quality Image instead of 3D -->
+            <div class="hero-image-wrapper glass">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop" 
+                     alt="Modern Clinical Laboratory Equipment" 
+                     class="hero-image" loading="lazy">
+            </div>
         </div>
     </section>
 
@@ -384,7 +402,7 @@
     <section id="about">
         <div class="about-container">
             <div class="about-visual glass">
-                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop" alt="Modern Laboratory" class="lab-image" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop" alt="Modern Laboratory Interior" class="lab-image" loading="lazy">
             </div>
             <div class="about-content">
                 <h2>Nearly 50 Years of Diagnostic Excellence</h2>
@@ -528,7 +546,7 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="#" class="logo">
-                    <div class="logo-icon"><i class="fas fa-dna"></i></div>
+                    <div class="logo-icon"><i class="fas fa-microscope"></i></div>
                     <div class="logo-text">
                         <h1>Dutta's Clinical Laboratory</h1>
                         <span>Rupnarayanpur</span>
@@ -575,109 +593,17 @@
     <script>
         // 1. Remove Loader
         window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 800);
+            setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 600);
         });
 
-        // 2. Three.js Clean 3D DNA (Frosted Glass / Matte aesthetic)
-        try {
-            const container = document.getElementById('canvas-container');
-            const scene = new THREE.Scene();
-            // Transparent background to blend with CSS blobs
-            scene.background = null; 
-            
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-
-            // Soft, professional lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-            scene.add(ambientLight);
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            dirLight.position.set(5, 5, 5);
-            scene.add(dirLight);
-            const fillLight = new THREE.DirectionalLight(0x0ea5e9, 0.4);
-            fillLight.position.set(-5, 0, 5);
-            scene.add(fillLight);
-
-            const dnaGroup = new THREE.Group();
-            const strandCount = 40;
-            const radius = 1.5;
-            const height = 6;
-            const turns = 2.5;
-
-            // Matte, clean materials (no neon glow)
-            const matBlue = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.3, metalness: 0.1 });
-            const matWhite = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3, metalness: 0.1 });
-            const matGray = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.5 });
-
-            for (let s = 0; s < 2; s++) {
-                const mat = s === 0 ? matBlue : matWhite;
-                for (let i = 0; i <= strandCount; i++) {
-                    const t = i;
-                    const angle = (t / strandCount) * Math.PI * 2 * turns + (s * Math.PI);
-                    const x = Math.cos(angle) * radius;
-                    const z = Math.sin(angle) * radius;
-                    const y = (t / strandCount) * height - height / 2;
-                    
-                    const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.15, 16, 16), mat);
-                    sphere.position.set(x, y, z);
-                    dnaGroup.add(sphere);
-                }
-            }
-
-            for (let i = 0; i <= strandCount; i++) {
-                const t = i;
-                const angle = (t / strandCount) * Math.PI * 2 * turns;
-                const x1 = Math.cos(angle) * radius;
-                const z1 = Math.sin(angle) * radius;
-                const y = (t / strandCount) * height - height / 2;
-                const x2 = Math.cos(angle + Math.PI) * radius;
-                const z2 = Math.sin(angle + Math.PI) * radius;
-                
-                const dist = Math.sqrt((x2-x1)**2 + (z2-z1)**2);
-                const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, dist, 8), matGray);
-                cylinder.position.set((x1+x2)/2, y, (z1+z2)/2);
-                cylinder.rotation.z = Math.PI / 2;
-                cylinder.rotation.y = -angle;
-                dnaGroup.add(cylinder);
-            }
-
-            scene.add(dnaGroup);
-            camera.position.z = 8;
-
-            let mouseX = 0, mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                dnaGroup.rotation.y += 0.003;
-                dnaGroup.rotation.x += (mouseY * 0.1 - dnaGroup.rotation.x) * 0.05;
-                dnaGroup.rotation.z += (mouseX * 0.1 - dnaGroup.rotation.z) * 0.05;
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-            });
-        } catch (e) { console.log("Three.js fallback active"); }
-
-        // 3. GSAP Animations
+        // 2. GSAP Animations (Smooth, professional, no 3D)
         gsap.registerPlugin(ScrollTrigger);
 
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
+        // Animate stats counting up
         document.querySelectorAll('.stat-number').forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
             ScrollTrigger.create({
@@ -687,15 +613,16 @@
             });
         });
 
+        // Animate glass cards floating up
         gsap.utils.toArray('.glass').forEach((el, i) => {
-            if(el.classList.contains('stat-item')) return; // Skip stats, handled above
+            if(el.classList.contains('stat-item') || el.classList.contains('hero-image-wrapper')) return;
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: 'top 85%' },
                 y: 40, opacity: 0, duration: 0.8, delay: (i % 4) * 0.1, ease: 'power3.out'
             });
         });
 
-        // 4. Mobile Menu
+        // 3. Mobile Menu
         const mobileMenu = document.getElementById('mobileMenu');
         const navLinks = document.getElementById('navLinks');
         mobileMenu.addEventListener('click', () => {
@@ -709,12 +636,12 @@
             navLinks.style.background = 'rgba(255, 255, 255, 0.95)';
             navLinks.style.padding = '2rem';
             navLinks.style.backdropFilter = 'blur(20px)';
-            navLinks.style.borderTop = '1px solid rgba(255,255,255,0.5)';
+            navLinks.style.borderTop = '1px solid rgba(255,255,255,0.6)';
             navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
             mobileMenu.querySelector('i').className = isOpen ? 'fas fa-bars' : 'fas fa-times';
         });
 
-        // 5. Smooth Scroll
+        // 4. Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
