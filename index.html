@@ -39,19 +39,12 @@
             color: var(--accent);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Soft, clean background */
             background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%);
             background-attachment: fixed;
         }
 
         /* Subtle background shapes for glass depth */
-        .bg-shape {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: -1;
-            opacity: 0.5;
-        }
+        .bg-shape { position: fixed; border-radius: 50%; filter: blur(90px); z-index: -1; opacity: 0.5; }
         .shape-1 { top: -10%; right: -5%; width: 40vw; height: 40vw; background: #bae6fd; }
         .shape-2 { bottom: -10%; left: -10%; width: 45vw; height: 45vw; background: #e0f2fe; }
 
@@ -67,7 +60,6 @@
             box-shadow: var(--glass-shadow);
             border-radius: 20px;
         }
-
         .glass-nav {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
@@ -95,19 +87,25 @@
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: #475569; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary); }
+        
         .nav-cta {
             padding: 0.6rem 1.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white !important; border-radius: 50px; font-weight: 600;
             box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3); transition: transform 0.3s, box-shadow 0.3s;
         }
         .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4); }
+        
+        .nav-report {
+            padding: 0.6rem 1.5rem; background: white; color: var(--primary) !important;
+            border: 1px solid var(--primary); border-radius: 50px; font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-report:hover { background: var(--primary); color: white !important; }
+
         .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
 
         /* Hero Section */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 80px;
-            position: relative;
-        }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 80px; position: relative; }
         .hero-container {
             max-width: 1200px; margin: 0 auto; display: grid;
             grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%;
@@ -144,23 +142,12 @@
         }
         .btn-secondary:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-3px); }
 
-        /* Professional Hero Image instead of 3D */
         .hero-image-wrapper {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(2, 132, 199, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative; border-radius: 24px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(2, 132, 199, 0.15); border: 1px solid rgba(255, 255, 255, 0.6);
         }
-        .hero-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .hero-image-wrapper:hover .hero-image {
-            transform: scale(1.03);
-        }
+        .hero-image { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .hero-image-wrapper:hover .hero-image { transform: scale(1.03); }
 
         /* Sections General */
         section { padding: 100px 5%; position: relative; }
@@ -172,17 +159,31 @@
         }
         .section-header h2 { font-size: clamp(2rem, 3vw, 2.75rem); margin-bottom: 1rem; }
 
-        /* Features */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .feature-card { padding: 2.5rem; transition: all 0.4s ease; }
-        .feature-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.85); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); }
-        .feature-icon {
+        /* Features & Services Grids */
+        .features-grid, .services-grid, .packages-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; max-width: 1200px; margin: 0 auto; 
+        }
+        .feature-card, .service-card, .package-card { padding: 2.5rem; transition: all 0.4s ease; }
+        .feature-card:hover, .service-card:hover, .package-card:hover { 
+            transform: translateY(-8px); background: rgba(255, 255, 255, 0.85); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); 
+        }
+        .feature-icon, .service-icon {
             width: 60px; height: 60px; background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(2, 132, 199, 0.05));
             border-radius: 16px; display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border: 1px solid rgba(2, 132, 199, 0.15);
         }
-        .feature-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .service-icon { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3); }
+        
+        .feature-card h3, .service-card h3, .package-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
         .highlight { color: var(--primary-dark); font-weight: 700; }
+        
+        /* Package Specifics */
+        .package-price { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 1rem 0; }
+        .package-price span { font-size: 1rem; color: #64748b; font-weight: 500; }
+        .package-features { list-style: none; margin-bottom: 1.5rem; }
+        .package-features li { margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: #475569; }
+        .package-features li i { color: #10b981; }
 
         /* About */
         .about-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -196,21 +197,6 @@
         }
         .highlight-item i { color: var(--primary); font-size: 1.1rem; }
         .highlight-item span { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
-
-        /* Services */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .service-card { padding: 2.5rem; transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.85); }
-        .service-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 16px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: white; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
-        }
-        .service-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
-        .service-category {
-            display: inline-block; padding: 0.35rem 1rem; background: rgba(2, 132, 199, 0.08);
-            border-radius: 50px; font-size: 0.75rem; color: var(--primary-dark); font-weight: 700; margin-top: 1rem;
-        }
 
         /* Testimonials */
         .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
@@ -245,18 +231,8 @@
         .contact-text a { color: var(--primary-dark); text-decoration: none; font-weight: 600; }
         .contact-text a:hover { text-decoration: underline; }
 
-        .contact-map { padding: 3rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 400px; }
-        .map-pin {
-            width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; color: white; margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        .map-pin i { transform: rotate(45deg); }
-        @keyframes pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.08); } }
-        .map-location strong { color: var(--accent); font-size: 1.3rem; display: block; margin-bottom: 0.5rem; }
+        .contact-map { padding: 1.5rem; min-height: 450px; display: flex; flex-direction: column; }
+        .map-iframe { width: 100%; height: 100%; border-radius: 16px; border: none; }
 
         /* Footer */
         .footer { background: var(--accent); color: white; padding: 60px 5% 30px; }
@@ -292,6 +268,23 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 60px; height: 60px; background-color: #25d366;
+            color: white; border-radius: 50%; text-align: center;
+            font-size: 32px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: transform 0.3s ease;
+            animation: pulse-green 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
         /* Responsive */
         @media (max-width: 968px) {
             .nav-links { display: none; }
@@ -306,6 +299,7 @@
             .footer-content { grid-template-columns: 1fr; }
             .cta-buttons { flex-direction: column; }
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 26px; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -330,8 +324,9 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" class="nav-report"><i class="fas fa-file-medical"></i> Check Report</a></li>
             <li><a href="#contact" class="nav-cta">Book Now</a></li>
         </ul>
         <div class="mobile-menu" id="mobileMenu"><i class="fas fa-bars"></i></div>
@@ -358,7 +353,6 @@
                 </div>
             </div>
             
-            <!-- Professional High-Quality Image instead of 3D -->
             <div class="hero-image-wrapper glass">
                 <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop" 
                      alt="Modern Clinical Laboratory Equipment" 
@@ -398,6 +392,118 @@
         </div>
     </section>
 
+    <!-- Services -->
+    <section id="services">
+        <div class="section-header">
+            <span class="section-tag">Our Services</span>
+            <h2>Specialized Health Profiles</h2>
+            <p>Comprehensive diagnostic testing under one roof with affordable pricing</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3>Comprehensive Health Check</h3>
+                <p>Full body checkups, diabetes screening, and prenatal panels.</p>
+            </div>
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-brain"></i></div>
+                <h3>Thyroid Profile</h3>
+                <p>Complete thyroid function testing including T3, T4, TSH.</p>
+            </div>
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-bone"></i></div>
+                <h3>Vitamin D & B12</h3>
+                <p>Essential vitamin level testing to detect deficiencies.</p>
+            </div>
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
+                <h3>Autoimmune Profile</h3>
+                <p>Advanced rheumatological testing for autoimmune conditions.</p>
+            </div>
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-heart"></i></div>
+                <h3>Cardiac Profile</h3>
+                <p>Complete cardiovascular risk assessment including lipid profile.</p>
+            </div>
+            <div class="service-card glass">
+                <div class="service-icon"><i class="fas fa-flask"></i></div>
+                <h3>Liver & Kidney Function</h3>
+                <p>Comprehensive hepatic and renal function testing panels.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Health Packages -->
+    <section id="packages" style="background: rgba(255,255,255,0.3);">
+        <div class="section-header">
+            <span class="section-tag">Transparent Pricing</span>
+            <h2>Popular Health Packages</h2>
+            <p>Affordable, comprehensive testing designed for your specific needs.</p>
+        </div>
+        <div class="packages-grid">
+            <div class="package-card glass">
+                <h3>Basic Health Check</h3>
+                <div class="package-price">₹499 <span>/ person</span></div>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i> Complete Blood Count (CBC)</li>
+                    <li><i class="fas fa-check"></i> Fasting Blood Sugar</li>
+                    <li><i class="fas fa-check"></i> Urine Routine</li>
+                    <li><i class="fas fa-check"></i> Same Day Report</li>
+                </ul>
+                <a href="#contact" class="btn-primary" style="width: 100%; justify-content: center;">Book Now</a>
+            </div>
+            <div class="package-card glass" style="border: 2px solid var(--primary); transform: scale(1.02);">
+                <div style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; margin-bottom: 1rem;">MOST POPULAR</div>
+                <h3>Senior Citizen Care</h3>
+                <div class="package-price">₹1,499 <span>/ person</span></div>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i> Liver Function Test (LFT)</li>
+                    <li><i class="fas fa-check"></i> Kidney Function Test (KFT)</li>
+                    <li><i class="fas fa-check"></i> Lipid Profile</li>
+                    <li><i class="fas fa-check"></i> Thyroid Profile (T3, T4, TSH)</li>
+                </ul>
+                <a href="#contact" class="btn-primary" style="width: 100%; justify-content: center;">Book Now</a>
+            </div>
+            <div class="package-card glass">
+                <h3>Women’s Wellness</h3>
+                <div class="package-price">₹1,999 <span>/ person</span></div>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i> Thyroid Profile</li>
+                    <li><i class="fas fa-check"></i> Vitamin D & B12</li>
+                    <li><i class="fas fa-check"></i> Complete Blood Count</li>
+                    <li><i class="fas fa-check"></i> Iron Studies</li>
+                </ul>
+                <a href="#contact" class="btn-primary" style="width: 100%; justify-content: center;">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Test Preparation -->
+    <section id="prep">
+        <div class="section-header">
+            <span class="section-tag">Patient Guide</span>
+            <h2>Before Your Visit</h2>
+            <p>Simple guidelines to ensure 100% accurate results.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Fasting Guidelines</h3>
+                <p>For Lipid Profiles and Blood Sugar tests, please maintain an <span class="highlight">8-10 hour fast</span>. Water is allowed.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon"><i class="fas fa-id-card"></i></div>
+                <h3>What to Bring</h3>
+                <p>Please carry a <span class="highlight">valid ID proof</span> and any previous prescriptions or reports for accurate comparison.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon"><i class="fas fa-building"></i></div>
+                <h3>In-House Processing</h3>
+                <p>Remember, we do not do home collection. Visit our lab so your sample is processed <span class="highlight">immediately</span> for maximum accuracy.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- About -->
     <section id="about">
         <div class="about-container">
@@ -414,53 +520,6 @@
                     <div class="highlight-item glass"><i class="fas fa-check-circle"></i><span>Free Parking for 10 Cars</span></div>
                     <div class="highlight-item glass"><i class="fas fa-check-circle"></i><span>Same-Day Routine Reports</span></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services">
-        <div class="section-header">
-            <span class="section-tag">Our Services</span>
-            <h2>Specialized Health Profiles</h2>
-            <p>Comprehensive diagnostic testing under one roof with affordable pricing</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
-                <h3>Comprehensive Health Check</h3>
-                <p>Full body checkups, diabetes screening, and prenatal panels.</p>
-                <span class="service-category">Comprehensive</span>
-            </div>
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-brain"></i></div>
-                <h3>Thyroid Profile</h3>
-                <p>Complete thyroid function testing including T3, T4, TSH.</p>
-                <span class="service-category">Specialized</span>
-            </div>
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-bone"></i></div>
-                <h3>Vitamin D & B12</h3>
-                <p>Essential vitamin level testing to detect deficiencies.</p>
-                <span class="service-category">Specialized</span>
-            </div>
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
-                <h3>Autoimmune Profile</h3>
-                <p>Advanced rheumatological testing for autoimmune conditions.</p>
-                <span class="service-category">Advanced</span>
-            </div>
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-heart"></i></div>
-                <h3>Cardiac Profile</h3>
-                <p>Complete cardiovascular risk assessment including lipid profile.</p>
-                <span class="service-category">Cardiac</span>
-            </div>
-            <div class="service-card glass">
-                <div class="service-icon"><i class="fas fa-flask"></i></div>
-                <h3>Liver & Kidney Function</h3>
-                <p>Comprehensive hepatic and renal function testing panels.</p>
-                <span class="service-category">Advanced</span>
             </div>
         </div>
     </section>
@@ -530,13 +589,16 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- NEW: Interactive Google Map -->
             <div class="contact-map glass">
-                <div class="map-pin"><i class="fas fa-location-crosshairs"></i></div>
-                <div class="map-location">
-                    <strong>Rupnarayanpur, Bankura</strong>
-                    West Bengal, India<br>
-                    <span style="font-size: 0.9rem; margin-top: 0.5rem; display: block; color: #64748b;">Near Dabore More</span>
-                </div>
+                <iframe 
+                    class="map-iframe"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.123456789!2d87.05!3d23.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f7a5c8c8c8c8c8%3A0x0!2sDabore%20More%2C%20Rupnarayanpur%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </section>
@@ -553,6 +615,11 @@
                     </div>
                 </a>
                 <p>Serving the community with advanced diagnostic care since 1976. Government of West Bengal Approved.</p>
+                <!-- NEW: Bilingual Note -->
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #94a3b8; font-style: italic;">
+                    বাংলা, হিন্দি এবং ইংরেজিতে পরিষেবা উপলব্ধ<br>
+                    Services available in Bengali, Hindi, and English.
+                </p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -564,7 +631,7 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a href="#packages">Health Packages</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -579,7 +646,7 @@
             <div class="footer-column">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#prep">Test Guidelines</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
@@ -590,20 +657,26 @@
         </div>
     </footer>
 
+    <!-- NEW: Floating WhatsApp Button -->
+    <!-- IMPORTANT: Replace 91XXXXXXXXXX with your actual WhatsApp number (e.g., 919876543210) -->
+    <a href="https://wa.me/91XXXXXXXXXX?text=Hello,%20I%20would%20like%20to%20inquire%20about%20a%20blood%20test." 
+       class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
         // 1. Remove Loader
         window.addEventListener('load', () => {
             setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 600);
         });
 
-        // 2. GSAP Animations (Smooth, professional, no 3D)
+        // 2. GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Animate stats counting up
         document.querySelectorAll('.stat-number').forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
             ScrollTrigger.create({
@@ -613,9 +686,8 @@
             });
         });
 
-        // Animate glass cards floating up
         gsap.utils.toArray('.glass').forEach((el, i) => {
-            if(el.classList.contains('stat-item') || el.classList.contains('hero-image-wrapper')) return;
+            if(el.classList.contains('stat-item') || el.classList.contains('hero-image-wrapper') || el.classList.contains('contact-map')) return;
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: 'top 85%' },
                 y: 40, opacity: 0, duration: 0.8, delay: (i % 4) * 0.1, ease: 'power3.out'
